@@ -1,0 +1,38 @@
+
+<div class="row" id="login-content">
+
+
+    <div class="col-md-6 col-sm-12">
+        <p>E-mailadresse</p>
+        <div class="input-group mb-4 w-75">
+            <input type="text" id="email-login" name="email-login" class="form-control" placeholder="E-mail">
+        </div>
+        <p>Adgangskode</p>
+        <div class="input-group mb-4 w-75">
+            <input type="password" id="password-login" name="password-login" class="form-control" placeholder="Password">
+        </div>   
+        <div class="d-grid gap-2 w-75">
+            <button class="btn btn-success mb-2" type="submit" onclick="sendLoginData()">Log ind</button>
+        </div>  
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+        <h3>Ny bruger</h3>
+        <p>
+            log ind med 
+            <a href="/nemid">NemID</a>
+            eller 
+            <a href="/register">klik her, for at oprette din e-mail.</a>
+        </p>
+        <br>
+        <h3>Glemt password</h3>
+        <p>
+            <a href="/reset-password">Klik her, for at nulstille din adgangskode.</a>
+        </p>   
+    </div>
+</div>
+
+
+
+<script src="/login_frontpage/login_frontpage.js"></script>
+<link rel="stylesheet" href="/login_frontpage/login_frontpage.css">
