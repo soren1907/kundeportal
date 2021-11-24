@@ -1,7 +1,6 @@
 
 <div class="row" id="login-content">
 
-
     <div class="col-md-6 col-sm-12">
         <p>E-mailadresse</p>
         <div class="input-group mb-4 w-75">
@@ -12,8 +11,9 @@
             <input type="password" id="password-login" name="password-login" class="form-control" placeholder="Password">
         </div>   
         <div class="d-grid gap-2 w-75">
-            <button class="btn btn-success mb-2" type="submit" onclick="sendLoginData()">Log ind</button>
+            <button class="btn btn-success mb-2" type="submit" onclick="login()">Log ind</button>
         </div>  
+        <div id="message-status"></div>
     </div>
 
     <div class="col-md-6 col-sm-12">
@@ -27,7 +27,7 @@
         <br>
         <h3>Glemt password</h3>
         <p>
-            <a href="/reset-password">Klik her, for at nulstille din adgangskode.</a>
+            <a href="/forgot-password">Klik her, for at nulstille din adgangskode.</a>
         </p>   
     </div>
 </div>

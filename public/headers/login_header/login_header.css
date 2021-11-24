@@ -1,0 +1,15 @@
+#login-header{
+    margin-top: 20px;
+}
+
+.nav{
+    margin: 0% 10%;
+}
+
+.nav-taps a{
+    color: green;
+}
+
+.nav-taps a:hover{
+    color: rgb(154, 187, 154);
+}

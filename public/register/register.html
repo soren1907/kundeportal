@@ -1,0 +1,63 @@
+
+
+<div class="row" style="margin: 20px 40px">
+    <div class="col-md-6 col-sm-12">
+        <p>E-mailadresse:</p>
+        <div class="input-group mb-4 w-75">
+            <input type="text" id="email-register" name="email-register" class="form-control" placeholder="E-mail">
+        </div>
+        <p>Fornavn:</p>
+        <div class="input-group mb-4 w-75">
+            <input type="text" id="first-name" name="first-name" class="form-control" placeholder="Fornavn">
+        </div>
+        <p>Efternavn:</p>
+        <div class="input-group mb-4 w-75">
+            <input type="text" id="last-name" name="last-name" class="form-control" placeholder="Efternavn">
+        </div>
+        <p>Adgangskode:</p>
+        <div class="input-group mb-4 w-75">
+            <input type="text" id="password" name="password" class="form-control" placeholder="Adgangskode">
+        </div>
+        <p>Gentag adgangskode:</p>
+        <div class="input-group mb-4 w-75">
+            <input type="text" id="password-confirmation" name="password-confirmation" class="form-control" placeholder="Gentag adgangskode">
+        </div>
+
+        <div class="d-grid gap-2 w-75">
+            <button class="btn btn-success mb-2" type="submit" onclick="signUp()" data-bs-toggle="modal" data-bs-target="#registerModal">OK</button>
+        </div> 
+
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+        <h4 style="color: rgb(63, 63, 63);">Registrering af e-mail</h4>
+        <p>Det er vigtigt, at du indtaster den samme e-mailadresse, som du har oplyst til Vækstfonden.</p>
+        <br>
+        <h4 style="color: rgb(63, 63, 63);">Registrering af navn og adgangskode</h4>
+        <p>Indtast dit navn og den adgangskode du ønsker at anvende til at logge ind med.</p>
+
+
+        <a href="/" style="color: green;">Tilbage til login</a>
+    </div>
+
+</div>
+
+                
+<div class="modal" id="registerModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Status</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+            <div id="status-message"></div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Luk</button>
+
+        </div>
+    </div>
+</div> 
+
+<script src="/register/register.js"></script>

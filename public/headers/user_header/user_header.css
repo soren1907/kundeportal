@@ -1,0 +1,16 @@
+#nav-links a{
+    color: green;
+    font-size: 18px;
+}
+
+#nav-links a:hover{
+    color: rgb(173, 200, 173);
+}
+
+.as-text{
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+}

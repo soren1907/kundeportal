@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-12" style="margin: 20px 30px">
+        <h3 style="color:rgb(68, 68, 68)">Brugerindstillinger</h3>
+        <br>
+        <p>Her kan du justere dine bruger indstillinger.</p>
+        <p>Dato og tal formater vil matche dit valgte sprog medmindre du ændrer dem nedenfor.</p>
+    </div>
+</div>
+
+<div class="row border-top">
+
+    <div class="col-12" style="margin: 20px 30px">
+        
+        <h4 style="color:rgb(68, 68, 68)">Slet profil</h4>
+        
+        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Klik her</button>
+        <div class="modal" id="deleteModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Slet profil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="delete-msg"></div>
+                    <p>Bekræft ved at indtaste password</p>
+                    <input type="password" id="confirm-email" name="confirm-delete" class="form-control" placeholder="password"
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Luk</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteProfile()">Slet</button>
+                </div>
+                </div>
+            </div>
+        </div>      
+    </div>
+</div>
+
+<script src="user_settings/user_settings.js"></script>
+    
