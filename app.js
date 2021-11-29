@@ -43,14 +43,16 @@ const loginHeader = fs.readFileSync(__dirname + "/public/headers/login_header/lo
 const userHeader = fs.readFileSync(__dirname + "/public/headers/user_header/user_header.html", "utf-8");
 const footer = fs.readFileSync(__dirname + "/public/footer/footer.html", "utf-8");
 
-// Html for endpoints
-const loginFrontpage = fs.readFileSync(__dirname + "/public/login_frontpage/login_frontpage.html", "utf-8");
-const loginNemid = fs.readFileSync(__dirname + "/public/login_nemid/login_nemid.html", "utf-8");
-const userFrontpage = fs.readFileSync(__dirname + "/public/user_frontpage/user_frontpage.html", "utf-8");
-const userSettings = fs.readFileSync(__dirname + "/public/user_settings/user_settings.html", "utf-8");
-const resetPassword = fs.readFileSync(__dirname + "/public/reset_password/reset_password.html", "utf-8");
-const register = fs.readFileSync(__dirname + "/public/register/register.html", "utf-8");
-const noSession = fs.readFileSync(__dirname + "/public/no_access/no_access.html", "utf-8");
+// Get html for endpoints
+const loginFrontpage = fs.readFileSync(__dirname + "/public/login_signup/login_frontpage/login_frontpage.html", "utf-8");
+const loginNemid = fs.readFileSync(__dirname + "/public/login_signup/login_nemid/login_nemid.html", "utf-8");
+const userFrontpage = fs.readFileSync(__dirname + "/public/user_pages/user_frontpage/user_frontpage.html", "utf-8");
+const userSettings = fs.readFileSync(__dirname + "/public/user_pages/user_settings/user_settings.html", "utf-8");
+const resetPassword = fs.readFileSync(__dirname + "/public/login_signup/reset_password/reset_password.html", "utf-8");
+const register = fs.readFileSync(__dirname + "/public/login_signup/register/register.html", "utf-8");
+const noSession = fs.readFileSync(__dirname + "/public/login_signup/no_access/no_access.html", "utf-8");
+const userMessages = fs.readFileSync(__dirname + "/public/user_pages/user_messages/user_messages.html", "utf-8");
+const userLoans = fs.readFileSync(__dirname + "/public/user_pages/user_loan_apply/user_loan_apply.html", "utf-8");
 
 //set up routes
 app.get("/", loginCheck, (req,res) => {
@@ -73,8 +75,16 @@ app.get("/user-settings", requireSession, (req,res) => {
     res.send(userHeader + userSettings + footer);
 });
 
-app.get("/forgot-password", (req,res) => {
+app.get("/forgot-password", loginCheck, (req,res) => {
     res.send(header + resetPassword + footer);
+});
+
+app.get("/user-messages", requireSession, (req,res) => {
+    res.send(userHeader + userMessages + footer);
+});
+
+app.get("/user-loan-apply", requireSession, (req,res) => {
+    res.send(userHeader + userLoans + footer);
 });
 
 // Server start

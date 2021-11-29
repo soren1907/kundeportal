@@ -1,4 +1,5 @@
 const statusMessage = document.getElementById('status-message');
+const goToLogin = document.getElementById('go-to-login');
 
 function signUp(){
 
@@ -20,9 +21,11 @@ function signUp(){
         return res.json();
     }).then(data => {
 
-        console.log(data.msg)
-        statusMessage.innerText = data.msg;
-        
+        statusMessage.innerText = data.msg; 
+        if(data.mailsent){
+            goToLogin.innerText = "Gå tilbage til login" 
+        }
+    
     }).catch(error => {
         console.log(error);
     });

@@ -6,8 +6,6 @@ router.post("/api/login", (req, res) => {
 
     const fetchedEmail = req.body.email.toString();
     const fetchedPassword = req.body.password.toString();
-    console.log(fetchedEmail);
-    console.log(fetchedPassword)
 
     connectHosted((error, client) => {
         const db = client.db("kundeportal");
@@ -22,14 +20,17 @@ router.post("/api/login", (req, res) => {
 
             if (!userData){
                 client.close();
-                res.status(401).send({msg : 'Email not found'}); 
-            } else{
+                res.status(401).send({msg : 'Forkert E-email eller adgangskode'}); 
+            } else if (!userData.confirmed){
+                client.close();
+                res.status(401).send({msg : 'Email er ikke bekræftet'}); 
+            }else {
                 bcrypt.compare(fetchedPassword, userData.password, (error, result) => {
                     if(result) {
                         req.session.email = userData.email;
                         res.status(200).send({loginSuccess: true});
                     } else {
-                        res.status(401).send({loginSuccess: false}); 
+                        res.status(401).send({loginSuccess: false, msg : 'Forkert E-email eller adgangskode'}); 
                     }
                     client.close();
                 })

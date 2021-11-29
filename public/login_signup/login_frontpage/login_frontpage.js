@@ -20,7 +20,7 @@ function login(){
             window.location.href = "/user-profile";
         } else {
             message.style.color = "red";
-            message.innerText = 'Wrong username/password';
+            message.innerText = data.msg;
         }
     }).catch(error => {
         console.log(error);
