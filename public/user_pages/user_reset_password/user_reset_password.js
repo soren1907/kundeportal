@@ -1,21 +1,32 @@
 const statusMessage = document.getElementById('status-message');
 const goToLogin = document.getElementById('go-to-login');
+url = window.location.href;
+const uuidToken = url.substring(url.lastIndexOf('/') + 1)
+let userData;
 
-function signUp(){
+fetch("/api/jwt_info/" + uuidToken).then(res => {
+    return res.json();
+}).then(data => {
+    userData = data;
+    document.getElementById("user-email").innerText = data.email;
+}).catch(error => {
+    console.log("error: " + error);
+});
+
+function resetPassword(){
 
     const data = {
-        email: document.getElementById("email-register").value,
-        firstName: document.getElementById("first-name").value,
-        lastName: document.getElementById("last-name").value,
+        email: userData.email,
+        uuid: userData.uuid,
         password: document.getElementById("password").value,
         passwordConfirmation: document.getElementById("password-confirmation").value
     };
 
-    fetch("/api/register", {
+    fetch("/api/save-new-password", {
         headers: {
             "Content-Type": "application/json; charset=UTF-8",
         },
-        method: "POST",
+        method: "PATCH",
         body: JSON.stringify(data)
     }).then(res => {
         return res.json();

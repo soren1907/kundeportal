@@ -51,40 +51,6 @@ router.delete("/api/delete_profile", (req, res) => {
     });
 });
 
-
-/*
-router.patch("/api/update_password", (req, res) => {
-    const oldPassword = req.body.oldPassword.toString();
-    const newPassword = req.body.newPassword.toString();
-    connectHosted((error, client) => {
-        const db = client.db("jokesDB");
-        const users = db.collection("user");
-        users.find().toArray((error, data) => {
-            if(error) { 
-                throw new Error(error);
-            }
-            const userData = data.find(user => user.username === req.session.user);
-            bcrypt.compare(oldPassword, userData.password, (error, result) => {
-                if(result) {
-                    bcrypt.hash(newPassword, 12, (error, hash) => {
-                        users.updateOne({username: userData.username}, {$set: {password: hash} }, (error, result ) => {
-                            if (error) {
-                                throw new Error(error);
-                            }
-                            client.close();
-                        })
-                    });
-                    res.status(200).send({updateSuccess: true});
-                } else {
-                    client.close();
-                    res.status(404).send({updateSuccess: false});
-                }
-            });
-        });
-    });
-});
-*/
-
 module.exports = {
     router
 };

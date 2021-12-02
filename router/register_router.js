@@ -14,20 +14,20 @@ let transport = nodemailer.createTransport({
     }
 });
 
-// 
 router.post("/api/register", (req, res) => {
     
-    const fetchedEmail = req.body.Email.toString();
+    const fetchedEmail = req.body.email.toString();
     const fetchedFirstName = req.body.firstName.toString();
     const fetchedLastName = req.body.lastName.toString();
     const fetchedPassword = req.body.password.toString();
     const fetchedPasswordConfirmation = req.body.passwordConfirmation.toString();
 
-    //Check if email does not allready exists and if password meets req
+    //Check if all fields er filled, email does not allready exists and if password meets req
     //Add user if true
-    if(fetchedPassword.length < 8) {
-        res.status(409).send({msg: "Adgangskode er for kort", mailsent: false});
-        
+    if(!(!!fetchedEmail && !!fetchedFirstName && !!fetchedLastName && !!fetchedPassword && !!fetchedPasswordConfirmation)){
+        res.status(409).send({msg: "Udfyld alle felter", mailsent: false}); 
+    } else if(fetchedPassword.length < 8) {
+        res.status(409).send({msg: "Adgangskode er for kort", mailsent: false}); 
     } else if(fetchedPassword != fetchedPasswordConfirmation) {
         res.status(409).send({msg: "Adgangskoder er forskellige", mailsent: false});
     } else {
@@ -44,10 +44,10 @@ router.post("/api/register", (req, res) => {
     
                 if (userData){
                     client.close();
-                    res.status(409).send({msg: "E-mail er allerede oprettet", mailsent: false});
+                    res.status(409).send({msg: "mailadresse er allerede oprettet", mailsent: false});
                 } else {
                     bcrypt.hash(fetchedPassword, 12, (error, hash) => {
-                        users.insertOne({ email: fetchedEmail, firstName: fetchedFirstName, lastName: fetchedLastName ,password: hash, confirmed: false, adminPermission: false} , (error, result) => {
+                        users.insertOne({ email: fetchedEmail, firstName: fetchedFirstName, lastName: fetchedLastName ,password: hash, confirmed: false, adminPermission: false, locked: false} , (error, result) => {
                             if (error) {
                                 throw new Error(error);
                             }
@@ -55,7 +55,7 @@ router.post("/api/register", (req, res) => {
                             client.close();
                         });
                     });
-                    res.status(201).send({msg: "Du vil modtage en mail med et bekræftelselink, som vil gøre profilen gyldig.", mailsent: true});
+                    res.status(201).send({msg: `Du vil modtage en mail med et bekræftelselink på mailadressen: ${fetchedEmail}, som vil gøre profilen gyldig.`, mailsent: true});
                 }
             });
         });
@@ -94,7 +94,7 @@ function sendConfirmationMail(fetchedEmail){
                 from: '"Vf kundeportal" <vfkundeportal@hotmail.com>',
                 to: fetchedEmail,
                 subject: 'Bekræft mail til vf kundeportal',
-                html: `Tryk på linket for at bekræfte mailen og log derefter ind: <a href="${url}">${url}</a>`,
+                html: `Tryk på linket for at bekræfte mailadressen og log derefter ind: <a href="${url}">klik her</a>`,
           });
         },
     );

@@ -10,6 +10,7 @@ require("dotenv").config();
 const registerRouter = require("./router/register_router.js");
 const loginRouter = require("./router/login_router.js");
 const userSessionRouter = require("./router/user_session_router.js");
+const resetPasswordRouter = require("./router/reset_password_router.js");
 
 // Middleware
 app.use(express.static("public"));
@@ -18,8 +19,9 @@ app.use(session({secret: process.env.SESSION_SECRET, resave: false, saveUninitia
 app.use(loginRouter.router);
 app.use(registerRouter.router);
 app.use(userSessionRouter.router);
+app.use(resetPasswordRouter.router);
  
-// Going to userprofile when not logged in -> no acess (redirect)
+// When trying to go to userprofile when not logged in -> no acess (redirect)
 const requireSession = (req, res, next) => {
     if(!req.session.email) {
         return res.status(401).send(header + noSession + footer);
@@ -48,7 +50,7 @@ const loginFrontpage = fs.readFileSync(__dirname + "/public/login_signup/login_f
 const loginNemid = fs.readFileSync(__dirname + "/public/login_signup/login_nemid/login_nemid.html", "utf-8");
 const userFrontpage = fs.readFileSync(__dirname + "/public/user_pages/user_frontpage/user_frontpage.html", "utf-8");
 const userSettings = fs.readFileSync(__dirname + "/public/user_pages/user_settings/user_settings.html", "utf-8");
-const resetPassword = fs.readFileSync(__dirname + "/public/login_signup/reset_password/reset_password.html", "utf-8");
+const forgotPassword = fs.readFileSync(__dirname + "/public/login_signup/forgot_password/forgot_password.html", "utf-8");
 const register = fs.readFileSync(__dirname + "/public/login_signup/register/register.html", "utf-8");
 const noSession = fs.readFileSync(__dirname + "/public/login_signup/no_access/no_access.html", "utf-8");
 const userMessages = fs.readFileSync(__dirname + "/public/user_pages/user_messages/user_messages.html", "utf-8");
@@ -76,7 +78,7 @@ app.get("/user-settings", requireSession, (req,res) => {
 });
 
 app.get("/forgot-password", loginCheck, (req,res) => {
-    res.send(header + resetPassword + footer);
+    res.send(header + forgotPassword + footer);
 });
 
 app.get("/user-messages", requireSession, (req,res) => {
@@ -85,6 +87,14 @@ app.get("/user-messages", requireSession, (req,res) => {
 
 app.get("/user-loan-apply", requireSession, (req,res) => {
     res.send(userHeader + userLoans + footer);
+});
+
+app.get("/user-loan-apply", requireSession, (req,res) => {
+    res.send(userHeader + userLoans + footer);
+});
+
+app.get("/*", (req, res) => {
+    res.status(404).send(header + "<h3>Site not found</h3>" + footer);
 });
 
 // Server start
