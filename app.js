@@ -5,6 +5,7 @@ const server = require("http").createServer(app);
 const fs = require("fs");
 const session = require("express-session");
 require("dotenv").config();
+const rateLimit = require("express-rate-limit");
 
 // Routes
 const registerRouter = require("./router/register_router.js");
@@ -12,7 +13,13 @@ const loginRouter = require("./router/login_router.js");
 const userSessionRouter = require("./router/user_session_router.js");
 const resetPasswordRouter = require("./router/reset_password_router.js");
 
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 5
+});
+
 // Middleware
+app.use("/api/login", limiter);
 app.use(express.static("public"));
 app.use(express.json()); // Kan læse json response fra client
 app.use(session({secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true}));
@@ -20,7 +27,7 @@ app.use(loginRouter.router);
 app.use(registerRouter.router);
 app.use(userSessionRouter.router);
 app.use(resetPasswordRouter.router);
- 
+
 // When trying to go to userprofile when not logged in -> no acess (redirect)
 const requireSession = (req, res, next) => {
     if(!req.session.email) {

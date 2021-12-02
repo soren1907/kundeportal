@@ -47,7 +47,7 @@ router.post("/api/register", (req, res) => {
                     res.status(409).send({msg: "mailadresse er allerede oprettet", mailsent: false});
                 } else {
                     bcrypt.hash(fetchedPassword, 12, (error, hash) => {
-                        users.insertOne({ email: fetchedEmail, firstName: fetchedFirstName, lastName: fetchedLastName ,password: hash, confirmed: false, adminPermission: false, locked: false} , (error, result) => {
+                        users.insertOne({ email: fetchedEmail, firstName: fetchedFirstName, lastName: fetchedLastName ,password: hash, confirmed: false} , (error, result) => {
                             if (error) {
                                 throw new Error(error);
                             }

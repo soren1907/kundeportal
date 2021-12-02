@@ -34,7 +34,6 @@ router.post("/api/login", (req, res) => {
                         req.session.email = userData.email;
                         res.status(200).send({loginSuccess: true});
                     } else {
-                        //
                         res.status(401).send({loginSuccess: false, msg : 'Forkert mailadresse eller adgangskode'}); 
                     }
                     client.close();

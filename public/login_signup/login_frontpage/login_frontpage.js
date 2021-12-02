@@ -16,6 +16,7 @@ function login(){
     })
     .then(response => response.json()) 
     .then(data => {
+        
         if (data.loginSuccess == true){
             window.location.href = "/user-profile";
         } else {
@@ -23,6 +24,8 @@ function login(){
             message.innerText = data.msg;
         }
     }).catch(error => {
+        message.style.color = "red";
+        message.innerText = "Antal forsøg overskredet. Prøv igen om 15 min."
         console.log(error);
     });
 }
