@@ -146,7 +146,7 @@ function sendNewPasswordMail(fetchedEmail, uuidToken){
         },
         process.env.EMAIL_SECRET,
         (err, emailToken) => {
-            const url = `http://localhost:8080/reset-password/${emailToken}`;
+            const url = `https://vf-kundeportal.herokuapp.com/reset-password/${emailToken}`;
 
             transport.sendMail({
                 from: '"Vf kundeportal" <vfkundeportal@hotmail.com>',

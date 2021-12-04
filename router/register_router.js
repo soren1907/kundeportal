@@ -88,7 +88,7 @@ function sendConfirmationMail(fetchedEmail){
         },
         process.env.EMAIL_SECRET,
         (err, emailToken) => {
-            const url = `http://localhost:8080/confirmation/${emailToken}`;
+            const url = `https://vf-kundeportal.herokuapp.com/confirmation/${emailToken}`;
 
             transport.sendMail({
                 from: '"Vf kundeportal" <vfkundeportal@hotmail.com>',
