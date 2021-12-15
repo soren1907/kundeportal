@@ -13,33 +13,33 @@ router.post("/api/login", (req, res) => {
 
         if(!(!!fetchedEmail && !!fetchedPassword)){
             res.status(409).send({msg: "Udfyld alle felter"}); 
-        }
-        
-        users.find().toArray((error, data) => {
+        } else {
+            users.find().toArray((error, data) => {
 
-            if(error) { 
-                throw new Error(error);
-            }
-            const userData = data.find(user => user.email === fetchedEmail);
-
-            if (!userData){
-                client.close();
-                res.status(401).send({msg : 'Forkert mailadresse eller adgangskode'}); 
-            } else if (!userData.confirmed){
-                client.close();
-                res.status(401).send({msg : 'mailadressen er ikke bekræftet'}); 
-            }else {
-                bcrypt.compare(fetchedPassword, userData.password, (error, result) => {
-                    if(result) {
-                        req.session.email = userData.email;
-                        res.status(200).send({loginSuccess: true});
-                    } else {
-                        res.status(401).send({loginSuccess: false, msg : 'Forkert mailadresse eller adgangskode'}); 
-                    }
+                if(error) { 
+                    throw new Error(error);
+                }
+                const userData = data.find(user => user.email === fetchedEmail);
+    
+                if (!userData){
                     client.close();
-                })
-            }
-        });
+                    res.status(401).send({msg : 'Forkert mailadresse eller adgangskode'}); 
+                } else if (!userData.confirmed){
+                    client.close();
+                    res.status(401).send({msg : 'mailadressen er ikke bekræftet'}); 
+                }else {
+                    bcrypt.compare(fetchedPassword, userData.password, (error, result) => {
+                        if(result) {
+                            req.session.email = userData.email;
+                            res.status(200).send({loginSuccess: true});
+                        } else {
+                            res.status(401).send({loginSuccess: false, msg : 'Forkert mailadresse eller adgangskode'}); 
+                        }
+                        client.close();
+                    })
+                }
+            });
+        }
     });
 }); 
 

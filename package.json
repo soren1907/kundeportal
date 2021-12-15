@@ -10,7 +10,7 @@
         "dev": "nodemon app.js"
     },
     "repository": {
-        "type": "git", 
+        "type": "git",
         "url": "git+https://github.com/soren1907/kundeportal"
     },
     "author": "Søren Raben",
@@ -26,6 +26,7 @@
         "express": "^4.17.1",
         "express-rate-limit": "^5.5.1",
         "express-session": "^1.17.2",
+        "helmet": "^4.6.0",
         "jsonwebtoken": "^8.5.1",
         "mongodb": "^3.6.6",
         "nodemailer": "^6.7.2",
