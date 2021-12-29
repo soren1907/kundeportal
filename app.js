@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const server = require("http").createServer(app);
 const fs = require("fs");
-const session = require("express-session");
+const session = require("cookie-session");
 require("dotenv").config();
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
@@ -28,7 +28,7 @@ app.use("/api/login", RequestLimiter);
 app.use("/api/register", RequestLimiter);
 app.use(express.static("public"));
 app.use(express.json()); // Kan læse json response fra client
-app.use(session({secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true}));
+app.use(session({secret: process.env.SESSION_SECRET, maxAge: 24 * 60 * 60 * 1000}));
 app.use(loginRouter.router);
 app.use(registerRouter.router);
 app.use(userSessionRouter.router);
