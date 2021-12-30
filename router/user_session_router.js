@@ -16,7 +16,7 @@ router.get("/api/get_profile", (req, res) => {
 });
 
 router.post("/api/signout", (req, res) => {
-    delete req.session.email;
+    req.session = null;
     res.status(201).send({msg: "logged out"});
 });
 
@@ -34,13 +34,13 @@ router.delete("/api/delete_profile", (req, res) => {
             const userData = data.find(user => user.email === req.session.email);
             bcrypt.compare(fetchedPassword, userData.password, (error, result) => {
                 if(result) {
+                    req.session = null;
                     users.deleteOne({email: userData.email}, (error, result ) => {
                         if (error) {
                             throw new Error(error);
                         }
                         client.close();
                     });
-                    delete req.session.user;
                     res.status(200).send({deleteSuccess: true});
                 } else {
                     client.close();

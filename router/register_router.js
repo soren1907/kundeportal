@@ -63,7 +63,7 @@ router.post("/api/register", (req, res) => {
 });
 
 // Endpoint from mail. token is a jwt that stores mail to be confirmed 
-router.get('/confirmation/:token', (req, res) => {
+router.patch('/confirmation/:token', (req, res) => {
 
     const user = jwt.verify(req.params.token, process.env.EMAIL_SECRET);
 
