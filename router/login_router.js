@@ -2,6 +2,7 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const {connectHosted, connectLocal} = require("../database/db_connection.js");
 
+// API to login
 router.post("/api/login", (req, res) => {
 
     const fetchedEmail = req.body.email.toString();

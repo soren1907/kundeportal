@@ -1,7 +1,7 @@
 //Method check if there is a session(first time visit) -> show cookies.
 //Script is called in footer.html (will be used on every route)
  
-fetch("/api/new_session_check").then(res => {
+fetch("/api/session").then(res => {
     return res.json();
 }).then(data => {
 

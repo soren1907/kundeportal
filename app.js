@@ -8,22 +8,18 @@ require("dotenv").config();
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 
-// Routes
+// Importing Routers
 const registerRouter = require("./router/register_router.js");
 const loginRouter = require("./router/login_router.js");
 const userSessionRouter = require("./router/user_session_router.js");
 const resetPasswordRouter = require("./router/reset_password_router.js");
 
+// Middleware
 const RequestLimiter = rateLimit({
     windowMs: 30 * 60 * 1000,
     max: 5
 });
-
-// Middleware
-app.use(helmet({
-    contentSecurityPolicy: false,
-}));
-
+app.use(helmet({contentSecurityPolicy: false}));
 app.use("/api/login", RequestLimiter);
 app.use("/api/register", RequestLimiter);
 app.use(express.static("public"));
@@ -69,7 +65,7 @@ const noSession = fs.readFileSync(__dirname + "/public/login_signup/no_access/no
 const userMessages = fs.readFileSync(__dirname + "/public/user_pages/user_messages/user_messages.html", "utf-8");
 const userLoans = fs.readFileSync(__dirname + "/public/user_pages/user_loan_apply/user_loan_apply.html", "utf-8");
 
-//set up routes
+//set up endpoint-routes
 app.get("/", loginCheck, (req,res) => {
     res.send(loginHeader + loginFrontpage + footer);
 });

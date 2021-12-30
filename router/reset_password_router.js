@@ -20,8 +20,8 @@ let transport = nodemailer.createTransport({
     }
 });
 
-// Get email and uuid (API)
-router.get("/api/jwt_info/:token", (req, res) => {
+// API to Get email and uuid (API)
+router.get("/api/reset-info/:token", (req, res) => {
     const user = jwt.verify(req.params.token, process.env.EMAIL_SECRET); 
     res.status(200).send({email: user.email, uuid: user.uuid});
 });
@@ -59,7 +59,7 @@ router.get('/reset-password/:token', (req, res) => {
     
 }); 
 
-// Fetch api to send mail to change password
+// API to send mail to change password
 router.post("/api/reset-password", (req, res) => {
     
     const fetchedEmail = req.body.Email.toString();
@@ -90,8 +90,8 @@ router.post("/api/reset-password", (req, res) => {
     });
 });
 
-// Fetch api to store new password in DB
-router.patch("/api/save-new-password", (req, res) => {
+// API to store new password in DB
+router.patch("/api/save-password", (req, res) => {
     
     const fetchedEmail = req.body.email.toString();
     const fetchedPassword = req.body.password.toString();

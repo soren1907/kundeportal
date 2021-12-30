@@ -1,6 +1,6 @@
 function deleteProfile(){
     const password = document.getElementById("confirm-email").value;
-    fetch("/api/delete_profile", {
+    fetch("/api/profile", {
         headers: {
             "Content-Type": "application/json; charset=UTF-8",
         },

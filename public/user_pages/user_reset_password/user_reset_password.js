@@ -4,7 +4,7 @@ url = window.location.href;
 const uuidToken = url.substring(url.lastIndexOf('/') + 1)
 let userData;
 
-fetch("/api/jwt_info/" + uuidToken).then(res => {
+fetch("/api/reset-info/" + uuidToken).then(res => {
     return res.json();
 }).then(data => {
     userData = data;
@@ -22,7 +22,7 @@ function resetPassword(){
         passwordConfirmation: document.getElementById("password-confirmation").value
     };
 
-    fetch("/api/save-new-password", {
+    fetch("/api/save-password", {
         headers: {
             "Content-Type": "application/json; charset=UTF-8",
         },

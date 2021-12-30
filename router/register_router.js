@@ -14,6 +14,7 @@ let transport = nodemailer.createTransport({
     }
 });
 
+// API to create and store user in DB
 router.post("/api/register", (req, res) => {
     
     const fetchedEmail = req.body.email.toString();

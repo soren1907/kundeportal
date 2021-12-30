@@ -2,25 +2,27 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const {connectHosted, connectLocal} = require("../database/db_connection.js");
 
-// Shows cookies modal
-router.get("/api/new_session_check", (req,res) => {
+// API to Shows cookies modal
+router.get("/api/session", (req,res) => {
     if(req.session.newSession == null) {
         req.session.newSession = false;
         res.send({newSession: true});
     } 
 });
 
-// Get email from logged in user
-router.get("/api/get_profile", (req, res) => {
+// API to Get email from logged in user
+router.get("/api/email", (req, res) => {
     res.status(200).send({email: req.session.email});
 });
 
+// API to signout
 router.post("/api/signout", (req, res) => {
     req.session = null;
     res.status(201).send({msg: "logged out"});
 });
 
-router.delete("/api/delete_profile", (req, res) => {
+// API to delete user profile
+router.delete("/api/profile", (req, res) => {
     const fetchedPassword = req.body.password.toString();
     connectHosted((error, client) => {
 
